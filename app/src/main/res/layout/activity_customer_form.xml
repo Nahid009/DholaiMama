@@ -9,6 +9,14 @@
     tools:context=".CustomerFormActivity">
 
 
+    <ImageView
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:contentDescription="@null"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_person"/>
+
+
 
 
 
@@ -57,6 +65,30 @@
         android:drawableStart="@drawable/ic_email"
         android:drawablePadding="@dimen/mediumMargin"
         android:hint="Address"
+        android:inputType="phone"
+        android:maxLength="19" />
+
+
+    <EditText
+        android:id="@+id/totalJobHolder"
+        style="@style/edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/largeMargin"
+        android:drawableStart="@drawable/ic_baseline"
+        android:drawablePadding="@dimen/mediumMargin"
+        android:hint="Total Job Holder"
+        android:inputType="phone"
+        android:maxLength="19" />
+    <EditText
+        android:id="@+id/monthlyLandryCost"
+        style="@style/edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/largeMargin"
+        android:drawableStart="@drawable/ic_calendar"
+        android:drawablePadding="@dimen/mediumMargin"
+        android:hint="Monthly Landry Cost"
         android:inputType="phone"
         android:maxLength="19" />
 
