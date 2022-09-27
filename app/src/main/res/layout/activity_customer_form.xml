@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".CustomerFormActivity">
+
+
+
+
+
+    <EditText
+        android:id="@+id/customer_name"
+        style="@style/edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/largeMargin"
+        android:drawableStart="@drawable/ic_person"
+        android:drawablePadding="@dimen/mediumMargin"
+        android:hint="Customer Name"
+        android:inputType="phone"
+        android:maxLength="19" />
+
+    <EditText
+        android:id="@+id/customer_email"
+        style="@style/edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/largeMargin"
+        android:drawableStart="@drawable/ic_email"
+        android:drawablePadding="@dimen/mediumMargin"
+        android:hint="Email Address"
+        android:inputType="phone"
+        android:maxLength="19" />
+
+    <EditText
+        android:id="@+id/customer_phone_num"
+        style="@style/edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/largeMargin"
+        android:drawableStart="@drawable/ic_phone"
+        android:drawablePadding="@dimen/mediumMargin"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        android:maxLength="19" />
+
+    <EditText
+        android:id="@+id/address"
+        style="@style/edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/largeMargin"
+        android:drawableStart="@drawable/ic_email"
+        android:drawablePadding="@dimen/mediumMargin"
+        android:hint="Address"
+        android:inputType="phone"
+        android:maxLength="19" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/notNowButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="Not Now" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></LinearLayout>
+
+        <Button
+            android:id="@+id/okButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="ok" />
+
+    </LinearLayout>
+
+</LinearLayout>
