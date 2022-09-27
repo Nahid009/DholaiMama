@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "705629281877",
+    "project_id": "pencil-tech-survey",
+    "storage_bucket": "pencil-tech-survey.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705629281877:android:f8f430f18a6b1f675abedc",
+        "android_client_info": {
+          "package_name": "com.nahidd.dholaimama"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "705629281877-401j1cnvi752levfqr51bnmfpt033vcq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl6ETlbVPUWeT9XDisILO-4huyQiayIgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "705629281877-401j1cnvi752levfqr51bnmfpt033vcq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

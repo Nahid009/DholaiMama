@@ -1,18 +1,255 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="#f2f2f2"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/xxSmallMargin"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_email"
+            android:layout_marginEnd="@dimen/xxSmallMargin"/>
+
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Survey Counter"
+            android:gravity="center"
+            android:padding="@dimen/xxxSmallMargin"
+            android:textColor="@color/black"
+            android:textSize="@dimen/mediumText"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:baselineAligned="false"
+        android:paddingTop="@dimen/smallMargin"
+        android:paddingBottom="@dimen/smallMargin">
+
+        <LinearLayout
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:background="@color/white"
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                style="@style/card_text"
+                android:layout_height="wrap_content"
+                android:text="Daily Survey" />
+
+            <TextView
+                android:id="@+id/daily_total"
+                style="@style/x_large_text"
+                android:textColor="#C48D06"
+                android:textSize="@dimen/largeText"
+               android:text="21" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
+
+
+            <TextView
+                style="@style/card_text"
+                android:layout_height="wrap_content"
+                android:text="Monthly Survey" />
+
+            <TextView
+                android:id="@+id/monthly_total"
+                style="@style/x_large_text"
+                android:textColor="#03C551"
+                android:textSize="@dimen/largeText"
+                android:text="16" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:baselineAligned="false"
+        android:paddingTop="@dimen/smallMargin"
+        android:paddingBottom="@dimen/smallMargin">
+
+        <LinearLayout
+            android:id="@+id/cardTotalComplain"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                style="@style/card_text"
+                android:layout_height="wrap_content"
+                android:text="Total Customer" />
+
+            <TextView
+                android:id="@+id/total_customer"
+                style="@style/x_large_text"
+                android:textColor="#C48D06"
+                android:textSize="@dimen/largeText"
+                android:text="21" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cardSolvedComplain"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
+
+
+            <TextView
+                style="@style/card_text"
+                android:text="Total User" />
+
+            <TextView
+                android:id="@+id/total_user"
+                style="@style/x_large_text"
+                android:textColor="#03C551"
+                android:textSize="@dimen/largeText"
+                android:text="16" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_margin="@dimen/smallMargin">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardEmergencyCall"
+        android:layout_height="match_parent"
+        style="@style/card"
+        app:cardBackgroundColor="@android:color/holo_red_light"
+        app:cardCornerRadius="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Call"
+                android:textSize="@dimen/normalText"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/smallMargin"
+                android:drawableStart="@drawable/ic_phone"
+                android:gravity="center"
+                android:text="+8801611443964"
+                android:autoLink="phone"
+                android:textColorLink="@android:color/white"
+                android:textSize="@dimen/xLargeText"
+                tools:ignore="UnusedAttribute"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llNearby"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:id="@+id/gotoCustomerFormLL"
+            android:layout_width="85dp"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/largeMargin"
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/imgNearbyBusStand"
+                android:layout_width="@dimen/ic_size"
+                android:layout_height="@dimen/ic_size"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_form"/>
+
+            <TextView
+                style="@style/card_text"
+                android:layout_height="40dp"
+                android:gravity="top|center"
+                android:text="custom\nform"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/offerLL"
+            android:layout_width="85dp"
+            android:layout_height="match_parent"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/largeMargin"
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/imgNearbyPublicToilet"
+                android:layout_width="@dimen/ic_size"
+                android:layout_height="@dimen/ic_size"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_person" />
+
+            <TextView
+                style="@style/card_text"
+                android:layout_height="40dp"
+                android:gravity="top|center"
+                android:text="Our\nOffer" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

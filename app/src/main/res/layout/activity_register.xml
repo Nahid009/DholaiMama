@@ -4,77 +4,127 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
-    android:gravity="center"
-    android:background=""
     android:orientation="vertical"
     tools:context=".RegisterActivity">
 
-    <TextView
-        android:id="@+id/registerTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="Register From"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/firstNameEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="First Name" />
-
-    <EditText
-        android:id="@+id/lastNameEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="Last Name" />
-
-    <EditText
-        android:id="@+id/mobileEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="Mobile Number" />
-
-    <EditText
-        android:id="@+id/passwordTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="Password" />
-
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/cardview_dark_background"
-        android:text="Next" />
-
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Already have an account" />
-
+        android:orientation="vertical"
+        android:paddingBottom="12dp"
+        android:paddingEnd="12dp"
+        android:paddingStart="12dp"
+        android:paddingTop="12dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingLeft="10dp"
-            android:textColor="@color/black"
-            android:text="Login"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/xxLargePadding"
+            android:text="@string/app_name"
+            android:textColor="@color/colorPrimary"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/xxLargePadding"
+            android:text="@string/wellcomee"
+            android:textColor="#000"
+            android:textSize="@dimen/xLargeText" />
+
+        <EditText
+            android:id="@+id/etNameReg"
+            style="@style/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/largeMargin"
+            android:drawableStart="@drawable/ic_person"
+            android:drawablePadding="@dimen/mediumMargin"
+            android:hint="Name"
+            android:textColor="#000"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/etEmailReg"
+            style="@style/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/largeMargin"
+            android:drawablePadding="@dimen/mediumMargin"
+            android:drawableStart="@drawable/ic_email"
+            android:hint="Email Address"
+            android:textColor="#000"
+            android:inputType="textEmailAddress"
+             />
+        <EditText
+            android:id="@+id/etPhoneNumber"
+            style="@style/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/largeMargin"
+            android:drawablePadding="@dimen/mediumMargin"
+            android:drawableStart="@drawable/ic_phone"
+            android:hint="Contract Number"
+            android:textColor="#000"
+            android:inputType="phone"
+            android:maxLength="11" />
+
+
+
+        <EditText
+            android:id="@+id/etPasswordReg"
+            style="@style/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/largeMargin"
+            android:drawableStart="@drawable/ic_password"
+            android:drawablePadding="@dimen/mediumMargin"
+            android:hint="Password"
+            android:textColor="#000"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/btnRegistration"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/custom_button"
+            android:text="Registration"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/mediumText" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xxLargePadding"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already have an Account?"
+                android:textSize="@dimen/mediumText" />
+
+            <TextView
+                android:id="@+id/tvLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/mediumMargin"
+                android:text="login"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/mediumText"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 
