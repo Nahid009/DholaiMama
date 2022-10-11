@@ -1,114 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:background="@color/white"
-    android:orientation="vertical"
     tools:context=".CustomerFormActivity">
 
-
-    <ImageView
-        android:id="@+id/iv_captureImage"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
-        android:layout_margin="10dp"
-        android:contentDescription="@null"
-        android:src="@drawable/imgpsh_fullsize_anim" />
-
-
-    <EditText
-        android:id="@+id/customer_name"
-        style="@style/edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/largeMargin"
-        android:drawableStart="@drawable/ic_person"
-        android:drawablePadding="@dimen/mediumMargin"
-        android:hint="Customer Name"
-        android:inputType="textPersonName"
-        android:textColor="#000" />
-
-    <EditText
-        android:id="@+id/customer_phone_num"
-        style="@style/edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/largeMargin"
-        android:drawableStart="@drawable/ic_phone"
-        android:drawablePadding="@dimen/mediumMargin"
-        android:hint="Phone Number"
-        android:textColor="#000"
-        android:inputType="phone"
-        android:maxLength="11" />
-
-
-    <EditText
-       android:id="@+id/customer_address"
-        style="@style/edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/largeMargin"
-        android:drawableStart="@drawable/ic_place"
-        android:drawablePadding="@dimen/mediumMargin"
-        android:hint="Address"
-        android:textColor="#000"
-        android:inputType="text" />
-
-    <EditText
-        android:id="@+id/totalJobHolder"
-        style="@style/edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/largeMargin"
-        android:drawableStart="@drawable/ic_baseline"
-        android:drawablePadding="@dimen/mediumMargin"
-        android:hint="Total Job Holder"
-        android:inputType="number"
-        android:textColor="#000"
-        android:importantForAutofill="no" />
-
-    <EditText
-        android:id="@+id/monthlyLandryCost"
-        style="@style/edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/largeMargin"
-        android:drawableStart="@drawable/ic_calendar"
-        android:drawablePadding="@dimen/mediumMargin"
-        android:hint="Monthly Landry Cost"
-        android:inputType="numberDecimal"
-        android:textColor="#000"
-        android:importantForAutofill="no" />
-
-    <CheckBox
-        android:id="@+id/checkedInterested"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="You are interested"
-        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        >
 
-        <Button
-            android:id="@+id/okButton"
+        <ImageView
+            android:id="@+id/iv_captureImage"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_margin="10dp"
+            android:contentDescription="@null"
+            android:layout_gravity="center"
+            android:src="@drawable/imgpsh_fullsize_anim" />
+
+
+        <EditText
+            android:id="@+id/customer_name"
+            style="@style/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/largeMargin"
+            android:drawableStart="@drawable/ic_person"
+            android:drawablePadding="@dimen/mediumMargin"
+            android:hint="Customer Name"
+            android:inputType="textPersonName"
+            android:textColor="#000" />
+
+        <EditText
+            android:id="@+id/customer_phone_num"
+            style="@style/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/largeMargin"
+            android:drawableStart="@drawable/ic_phone"
+            android:drawablePadding="@dimen/mediumMargin"
+            android:hint="Phone Number"
+            android:textColor="#000"
+            android:inputType="phone"
+            android:maxLength="11" />
+
+
+        <EditText
+            android:id="@+id/customer_address"
+            style="@style/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/largeMargin"
+            android:drawableStart="@drawable/ic_place"
+            android:drawablePadding="@dimen/mediumMargin"
+            android:hint="Address"
+            android:textColor="#000"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/totalJobHolder"
+            style="@style/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/largeMargin"
+            android:drawableStart="@drawable/ic_baseline"
+            android:drawablePadding="@dimen/mediumMargin"
+            android:hint="Total Job Holder"
+            android:inputType="number"
+            android:textColor="#000"
+            android:importantForAutofill="no" />
+
+        <EditText
+            android:id="@+id/monthlyLandryCost"
+            style="@style/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/largeMargin"
+            android:drawableStart="@drawable/ic_calendar"
+            android:drawablePadding="@dimen/mediumMargin"
+            android:hint="Monthly Landry Cost"
+            android:inputType="numberDecimal"
+            android:textColor="#000"
+            android:importantForAutofill="no" />
+
+        <CheckBox
+            android:id="@+id/checkedInterested"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/custom_button"
-            android:padding="10dp"
-            android:text="ok"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:text="You are interested"
+            android:layout_gravity="center"
+            />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/okButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/custom_button"
+                android:padding="10dp"
+                android:text="ok"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+
+
+</ScrollView>
