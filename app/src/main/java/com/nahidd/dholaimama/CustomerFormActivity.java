@@ -72,6 +72,8 @@ public class CustomerFormActivity extends AppCompatActivity {
                 address = customer_address.getText().toString();
                 phone_number = customer_phone_number.getText().toString();
 
+                int lenth = phone_number.length();
+
 
                 if (interested.isChecked()){
                     isInterested = true;
@@ -86,7 +88,7 @@ public class CustomerFormActivity extends AppCompatActivity {
                 else if (TextUtils.isEmpty(phone_number)) {
                     Toast.makeText(CustomerFormActivity.this, "Please Enter Valid Phone Number!", Toast.LENGTH_SHORT).show();
                 }
-                else if (TextUtils.isEmpty(address)) {
+                else if (TextUtils.isEmpty(address) && lenth != 11) {
                     Toast.makeText(CustomerFormActivity.this, "Please Enter Valid address!", Toast.LENGTH_SHORT).show();
                 }
 
