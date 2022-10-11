@@ -2,17 +2,19 @@ package com.nahidd.dholaimama.model;
 
 public class CustomerInfo {
     private String customer_id, customer_name,customer_address,customer_phone_number,user_id,location;
+    private boolean isInterested;
 
     public CustomerInfo() {
     }
 
-    public CustomerInfo(String customer_id, String customer_name, String customer_address, String customer_phone_number, String user_id, String location) {
+    public CustomerInfo(String customer_id, String customer_name, String customer_address, String customer_phone_number, String user_id, String location, boolean isInterested) {
         this.customer_id = customer_id;
         this.customer_name = customer_name;
         this.customer_address = customer_address;
         this.customer_phone_number = customer_phone_number;
         this.user_id = user_id;
         this.location = location;
+        this.isInterested = isInterested;
     }
 
     public String getCustomer_id() {
@@ -61,5 +63,13 @@ public class CustomerInfo {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public boolean isInterested() {
+        return isInterested;
+    }
+
+    public void setInterested(boolean interested) {
+        isInterested = interested;
     }
 }
