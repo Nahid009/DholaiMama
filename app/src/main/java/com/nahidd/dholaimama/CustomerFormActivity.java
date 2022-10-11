@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -25,7 +26,7 @@ import com.nahidd.dholaimama.model.UserInfo;
 public class CustomerFormActivity extends AppCompatActivity {
 
     private ImageView captureImage;
-    private EditText customer_name,customer_phone_number,customer_address,customer_totalJobHolder,customer_monthlyLandryCost;
+    private EditText customer_name,customer_phone_number, name,customer_address,customer_totalJobHolder,customer_monthlyLandryCost;
     private Button okButton;
     private CheckBox interested;
 
@@ -55,6 +56,7 @@ public class CustomerFormActivity extends AppCompatActivity {
         }else {
             isInterested = false;
         }
+
 
 
         db = FirebaseFirestore.getInstance();
