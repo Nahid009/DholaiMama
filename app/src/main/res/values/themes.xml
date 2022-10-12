@@ -103,4 +103,10 @@
         <item name="android:layout_margin">@dimen/xxSmallMargin</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
     </style>
+
+    <style name="RedProgressbar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
 </resources>
