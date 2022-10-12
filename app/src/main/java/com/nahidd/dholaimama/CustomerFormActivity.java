@@ -41,21 +41,23 @@ import java.util.List;
 public class CustomerFormActivity extends AppCompatActivity implements LocationListener {
 
     private ImageView captureImage;
-    private EditText customer_name,customer_phone_number,customer_address,customer_totalJobHolder,customer_monthlyLandryCost;
+    private EditText customer_name, customer_phone_number, customer_address, customer_totalJobHolder, customer_monthlyLandryCost;
     private Button okButton;
     private CheckBox interested;
-  //  private TextView txtLat;
+
+    protected LocationManager locationManager;
+    protected LocationListener locationListener;
+    //  private TextView txtLat;
 
 
     String lat;
     String provider;
-    protected String latitude,longitude;
-    protected boolean gps_enabled,network_enabled;
+    protected String latitude, longitude;
+    protected boolean gps_enabled, network_enabled;
 
 
     private FirebaseFirestore db;
     private FirebaseUser firebaseUser;
-
 
 
     private boolean isInterested;
@@ -75,9 +77,18 @@ public class CustomerFormActivity extends AppCompatActivity implements LocationL
         interested = findViewById(R.id.checkedInterested);
 
 
-
-
-
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
 
         db = FirebaseFirestore.getInstance();
@@ -87,12 +98,11 @@ public class CustomerFormActivity extends AppCompatActivity implements LocationL
         String customer_id = firebaseUser.getUid();
 
 
-
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String name,address,phone_number;
+                String name, address, phone_number;
 
                 name = customer_name.getText().toString();
                 address = customer_address.getText().toString();
@@ -101,39 +111,33 @@ public class CustomerFormActivity extends AppCompatActivity implements LocationL
                 int lenth = phone_number.length();
 
 
-                if (interested.isChecked()){
+                if (interested.isChecked()) {
                     isInterested = true;
-                }else {
+                } else {
                     isInterested = false;
                 }
 
 
                 if (TextUtils.isEmpty(name)) {
                     Toast.makeText(CustomerFormActivity.this, "Please Enter Valid Name! ", Toast.LENGTH_SHORT).show();
-                }
-                else if (TextUtils.isEmpty(phone_number)) {
+                } else if (TextUtils.isEmpty(phone_number)) {
                     Toast.makeText(CustomerFormActivity.this, "Please Enter Valid Phone Number!", Toast.LENGTH_SHORT).show();
-                }
-                else if (TextUtils.isEmpty(address) && lenth != 11) {
+                } else if (TextUtils.isEmpty(address) && lenth != 11) {
                     Toast.makeText(CustomerFormActivity.this, "Please Enter Valid address!", Toast.LENGTH_SHORT).show();
-                }
-
-                else if (TextUtils.isEmpty(customer_totalJobHolder.getText().toString())) {
+                } else if (TextUtils.isEmpty(customer_totalJobHolder.getText().toString())) {
                     Toast.makeText(CustomerFormActivity.this, "Please Enter Valid Total Job Holder!", Toast.LENGTH_SHORT).show();
-                }
-                else if (TextUtils.isEmpty(customer_monthlyLandryCost.getText().toString())) {
+                } else if (TextUtils.isEmpty(customer_monthlyLandryCost.getText().toString())) {
                     Toast.makeText(CustomerFormActivity.this, "Please Enter Valid Monthly Landry Cost!", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     UserInfo userInfo = new UserInfo();
                     String userId = userInfo.getUser_id();
 
 
-                    addInfo(customer_id,name,address,phone_number,userId,"",isInterested);
+                    addInfo(customer_id, name, address, phone_number, userId, "", isInterested);
 
-                    Intent intent = new Intent(CustomerFormActivity.this,SuccessActivity.class);
+                    Intent intent = new Intent(CustomerFormActivity.this, SuccessActivity.class);
                     startActivity(intent);
                 }
-
 
 
             }
@@ -143,16 +147,13 @@ public class CustomerFormActivity extends AppCompatActivity implements LocationL
     }
 
 
-
-
-
-    private void addInfo(String customer_id,String name, String address, String phone_number,String user_id,String location, boolean isChecked) {
+    private void addInfo(String customer_id, String name, String address, String phone_number, String user_id, String location, boolean isChecked) {
 
 
         CollectionReference dbCourses = db.collection("Customer");
 
 
-        CustomerInfo customerInfo = new CustomerInfo(customer_id,name,address,phone_number,user_id,location,isChecked);
+        CustomerInfo customerInfo = new CustomerInfo(customer_id, name, address, phone_number, user_id, location, isChecked);
 
 
         dbCourses.add(customerInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -173,24 +174,25 @@ public class CustomerFormActivity extends AppCompatActivity implements LocationL
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
-       // txtLat = (TextView) findViewById(R.id.textview1);
-      //  txtLat.setText("Latitude:" + location.getLatitude() + ", Longitude:" + location.getLongitude());
+        // txtLat = (TextView) findViewById(R.id.textview1);
+        //  txtLat.setText("Latitude:" + location.getLatitude() + ", Longitude:" + location.getLongitude());
     }
 
 
     @Override
     public void onProviderEnabled(@NonNull String provider) {
         LocationListener.super.onProviderEnabled(provider);
-        Log.d("Latitude","enable");
+        Log.d("Latitude", "enable");
     }
+
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        Log.d("Latitude","status");
+        Log.d("Latitude", "status");
     }
 
     @Override
     public void onProviderDisabled(@NonNull String provider) {
         LocationListener.super.onProviderDisabled(provider);
-        Log.d("Latitude","disable");
+        Log.d("Latitude", "disable");
     }
 }
