@@ -2,15 +2,27 @@ package com.nahidd.dholaimama;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.location.LocationRequest;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,16 +35,28 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.nahidd.dholaimama.model.CustomerInfo;
 import com.nahidd.dholaimama.model.UserInfo;
 
-public class CustomerFormActivity extends AppCompatActivity {
+import java.util.List;
+
+
+public class CustomerFormActivity extends AppCompatActivity implements LocationListener {
 
     private ImageView captureImage;
     private EditText customer_name,customer_phone_number,customer_address,customer_totalJobHolder,customer_monthlyLandryCost;
     private Button okButton;
     private CheckBox interested;
+  //  private TextView txtLat;
+
+
+    String lat;
+    String provider;
+    protected String latitude,longitude;
+    protected boolean gps_enabled,network_enabled;
 
 
     private FirebaseFirestore db;
     private FirebaseUser firebaseUser;
+
+
 
     private boolean isInterested;
 
@@ -49,6 +73,8 @@ public class CustomerFormActivity extends AppCompatActivity {
         customer_monthlyLandryCost = findViewById(R.id.monthlyLandryCost);
         okButton = findViewById(R.id.okButton);
         interested = findViewById(R.id.checkedInterested);
+
+
 
 
 
@@ -111,9 +137,14 @@ public class CustomerFormActivity extends AppCompatActivity {
 
 
             }
+
         });
 
     }
+
+
+
+
 
     private void addInfo(String customer_id,String name, String address, String phone_number,String user_id,String location, boolean isChecked) {
 
@@ -137,5 +168,29 @@ public class CustomerFormActivity extends AppCompatActivity {
                 Toast.makeText(CustomerFormActivity.this, "Fail", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+       // txtLat = (TextView) findViewById(R.id.textview1);
+      //  txtLat.setText("Latitude:" + location.getLatitude() + ", Longitude:" + location.getLongitude());
+    }
+
+
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
+        LocationListener.super.onProviderEnabled(provider);
+        Log.d("Latitude","enable");
+    }
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        Log.d("Latitude","status");
+    }
+
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
+        LocationListener.super.onProviderDisabled(provider);
+        Log.d("Latitude","disable");
     }
 }
