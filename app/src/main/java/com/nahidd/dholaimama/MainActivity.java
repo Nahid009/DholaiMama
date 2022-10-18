@@ -9,9 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.nahidd.dholaimama.model.CustomerInfo;
+
 public class MainActivity extends AppCompatActivity {
 
     private LinearLayout customerForm, offer;
+
+    private Button showBtn;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -21,6 +25,19 @@ public class MainActivity extends AppCompatActivity {
 
         customerForm = findViewById(R.id.gotoCustomerFormLL);
         offer = findViewById(R.id.offerLL);
+
+
+
+        /////////new added
+        showBtn = findViewById(R.id.showBtn);
+        showBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ShowCustomerActivity.class);
+                startActivity(intent);
+            }
+        });
+        /////////new added
 
 
 
