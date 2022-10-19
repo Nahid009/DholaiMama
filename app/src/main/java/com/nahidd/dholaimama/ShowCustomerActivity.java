@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,6 +32,11 @@ public class ShowCustomerActivity extends AppCompatActivity {
     ProgressBar loadingPB;
 
 
+    int nb = 0;
+
+
+    private TextView totalCustomerNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,11 +45,20 @@ public class ShowCustomerActivity extends AppCompatActivity {
         courseRV = findViewById(R.id.idRVCourses);
         loadingPB = findViewById(R.id.idProgressBar);
 
+
+       totalCustomerNumber = findViewById(R.id.totalCustomerTv);
+
+
+
         db = FirebaseFirestore.getInstance();
 
         coursesArrayList = new ArrayList<>();
         courseRV.setHasFixedSize(true);
         courseRV.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+
 
         customerInfoAdapter = new CustomerInfoAdapter(coursesArrayList, this);
 
@@ -52,6 +68,12 @@ public class ShowCustomerActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+
+
+
+
+
 
                         if (!queryDocumentSnapshots.isEmpty()) {
 
@@ -64,7 +86,11 @@ public class ShowCustomerActivity extends AppCompatActivity {
                                 coursesArrayList.add(c);
 
 
+                                nb = nb + 1;
+
                             }
+                            String totalCustomer = String.valueOf(nb);
+                            totalCustomerNumber.setText(totalCustomer);
 
                             customerInfoAdapter.notifyDataSetChanged();
 

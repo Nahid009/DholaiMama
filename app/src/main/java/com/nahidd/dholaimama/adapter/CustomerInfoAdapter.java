@@ -59,6 +59,7 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
         holder.longitude.setText(longi);
 
 
+
     }
 
 
