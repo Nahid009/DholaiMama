@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,7 +31,7 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
     @Override
     public CustomerInfoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.customerinfo, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.customer_info, parent, false);
         return new ViewHolder(view);
     }
 
@@ -48,12 +47,11 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
         holder.customer_phoneNumber.setText(customerInfo.getCustomer_phone_number());
 
 
-        String lati = String.valueOf(customerInfo.getLatitude());
-        String longi = String.valueOf(customerInfo.getLongitude());
+        String lati = String.valueOf(customerInfo.getLati());
+        String longi = String.valueOf(customerInfo.getLongi());
 
 
         String is = String.valueOf(customerInfo.isInterested());
-
 
         holder.isInterested.setText(is);
 

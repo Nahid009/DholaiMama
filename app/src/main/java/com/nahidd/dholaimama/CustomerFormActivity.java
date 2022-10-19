@@ -1,17 +1,19 @@
 package com.nahidd.dholaimama;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationRequest;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
@@ -25,8 +27,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -38,18 +51,22 @@ import com.nahidd.dholaimama.model.UserInfo;
 import java.util.List;
 
 
-public class CustomerFormActivity extends AppCompatActivity implements LocationListener {
+public class CustomerFormActivity extends AppCompatActivity   {
 
     private ImageView captureImage;
     private EditText customer_name,customer_phone_number,customer_address,customer_totalJobHolder,customer_monthlyLandryCost;
     private Button okButton;
     private CheckBox interested;
-  //  private TextView txtLat;
 
+    /////////location
+    private LocationRequest locationRequest;
+    public double latitude;
+    public double longitude;
+    /////////location
 
     String lat;
     String provider;
-    protected String latitude,longitude;
+
     protected boolean gps_enabled,network_enabled;
 
 
@@ -75,9 +92,13 @@ public class CustomerFormActivity extends AppCompatActivity implements LocationL
         interested = findViewById(R.id.checkedInterested);
 
 
+        ////////////location
+        locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(5000);
+        locationRequest.setFastestInterval(2000);
 
-
-
+        ////////////location
 
 
         db = FirebaseFirestore.getInstance();
@@ -128,7 +149,13 @@ public class CustomerFormActivity extends AppCompatActivity implements LocationL
                     String userId = userInfo.getUser_id();
 
 
-                    addInfo(customer_id,name,address,phone_number,userId,"",isInterested);
+                    ///////loaction
+                    getCurrentLocation();
+                    ///////location
+
+
+
+                    addInfo(customer_id,name,address,phone_number,userId,latitude,longitude,isInterested);
 
                     Intent intent = new Intent(CustomerFormActivity.this,SuccessActivity.class);
                     startActivity(intent);
@@ -143,17 +170,13 @@ public class CustomerFormActivity extends AppCompatActivity implements LocationL
     }
 
 
-
-
-
-    private void addInfo(String customer_id,String name, String address, String phone_number,String user_id,String location, boolean isChecked) {
+    private void addInfo(String customer_id,String name, String address, String phone_number,String user_id,double lati,double longi, boolean isChecked) {
 
 
         CollectionReference dbCourses = db.collection("Customer");
 
 
-        CustomerInfo customerInfo = new CustomerInfo(customer_id,name,address,phone_number,user_id,location,isChecked);
-
+        CustomerInfo customerInfo = new CustomerInfo(customer_id,name,address,phone_number,user_id,lati,longi,isChecked);
 
         dbCourses.add(customerInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
@@ -171,26 +194,132 @@ public class CustomerFormActivity extends AppCompatActivity implements LocationL
     }
 
 
+
     @Override
-    public void onLocationChanged(@NonNull Location location) {
-       // txtLat = (TextView) findViewById(R.id.textview1);
-      //  txtLat.setText("Latitude:" + location.getLatitude() + ", Longitude:" + location.getLongitude());
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 1){
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+                if (isGPSEnabled()) {
+
+                    getCurrentLocation();
+
+                }else {
+
+                    turnOnGPS();
+                }
+            }
+        }
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 2) {
+            if (resultCode == Activity.RESULT_OK) {
+
+                getCurrentLocation();
+            }
+        }
+    }
+
+    private void getCurrentLocation() {
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ActivityCompat.checkSelfPermission(CustomerFormActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                if (isGPSEnabled()) {
+
+                    LocationServices.getFusedLocationProviderClient(CustomerFormActivity.this)
+                            .requestLocationUpdates(locationRequest, new LocationCallback() {
+                                @Override
+                                public void onLocationResult(@NonNull LocationResult locationResult) {
+                                    super.onLocationResult(locationResult);
+
+                                    LocationServices.getFusedLocationProviderClient(CustomerFormActivity.this)
+                                            .removeLocationUpdates(this);
+
+                                    if (locationResult != null && locationResult.getLocations().size() >0){
+
+                                        int index = locationResult.getLocations().size() - 1;
+                                         latitude = locationResult.getLocations().get(index).getLatitude();
+                                         longitude = locationResult.getLocations().get(index).getLongitude();
+
+                                       // AddressText.setText("Latitude: "+ latitude + "\n" + "Longitude: "+ longitude);
+                                    }
+                                }
+                            }, Looper.getMainLooper());
+
+                } else {
+                    turnOnGPS();
+                }
+
+            } else {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            }
+        }
+    }
+
+    private void turnOnGPS() {
+
+
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(locationRequest);
+        builder.setAlwaysShow(true);
+
+        Task<LocationSettingsResponse> result = LocationServices.getSettingsClient(getApplicationContext())
+                .checkLocationSettings(builder.build());
+
+        result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
+            @Override
+            public void onComplete(@NonNull Task<LocationSettingsResponse> task) {
+
+                try {
+                    LocationSettingsResponse response = task.getResult(ApiException.class);
+                    Toast.makeText(CustomerFormActivity.this, "GPS is already tured on", Toast.LENGTH_SHORT).show();
+
+                } catch (ApiException e) {
+
+                    switch (e.getStatusCode()) {
+                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+
+                            try {
+                                ResolvableApiException resolvableApiException = (ResolvableApiException) e;
+                                resolvableApiException.startResolutionForResult(CustomerFormActivity .this, 2);
+                            } catch (IntentSender.SendIntentException ex) {
+                                ex.printStackTrace();
+                            }
+                            break;
+
+                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                            //Device does not have location
+                            break;
+                    }
+                }
+            }
+        });
+
+    }
+
+    private boolean isGPSEnabled() {
+        LocationManager locationManager = null;
+        boolean isEnabled = false;
+
+        if (locationManager == null) {
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        }
+
+        isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        return isEnabled;
+
     }
 
 
-    @Override
-    public void onProviderEnabled(@NonNull String provider) {
-        LocationListener.super.onProviderEnabled(provider);
-        Log.d("Latitude","enable");
-    }
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-        Log.d("Latitude","status");
-    }
-
-    @Override
-    public void onProviderDisabled(@NonNull String provider) {
-        LocationListener.super.onProviderDisabled(provider);
-        Log.d("Latitude","disable");
-    }
 }

@@ -61,7 +61,6 @@ public class ShowCustomerActivity extends AppCompatActivity {
 
                                 CustomerInfo c = d.toObject(CustomerInfo.class);
 
-
                                 coursesArrayList.add(c);
 
 
