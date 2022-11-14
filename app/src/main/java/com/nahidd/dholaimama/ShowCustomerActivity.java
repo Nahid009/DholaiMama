@@ -12,8 +12,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -30,6 +39,8 @@ public class ShowCustomerActivity extends AppCompatActivity {
     private CustomerInfoAdapter customerInfoAdapter;
     private FirebaseFirestore db;
     ProgressBar loadingPB;
+    private TextView CurrentDateTextView;
+    private String currentDate;
 
 
     int nb = 0;
@@ -44,10 +55,10 @@ public class ShowCustomerActivity extends AppCompatActivity {
 
         courseRV = findViewById(R.id.idRVCourses);
         loadingPB = findViewById(R.id.idProgressBar);
+        CurrentDateTextView = findViewById(R.id.currentDate);
 
 
-       totalCustomerNumber = findViewById(R.id.totalCustomerTv);
-
+        totalCustomerNumber = findViewById(R.id.totalCustomerTv);
 
 
         db = FirebaseFirestore.getInstance();
@@ -55,9 +66,6 @@ public class ShowCustomerActivity extends AppCompatActivity {
         coursesArrayList = new ArrayList<>();
         courseRV.setHasFixedSize(true);
         courseRV.setLayoutManager(new LinearLayoutManager(this));
-
-
-
 
 
         customerInfoAdapter = new CustomerInfoAdapter(coursesArrayList, this);
@@ -68,11 +76,6 @@ public class ShowCustomerActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
-
-
-
-
 
 
                         if (!queryDocumentSnapshots.isEmpty()) {
@@ -109,6 +112,37 @@ public class ShowCustomerActivity extends AppCompatActivity {
                         Toast.makeText(ShowCustomerActivity.this, "Fail to get the data.", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+        //////////////////////// singleDocument Get System ////////////////////////////////
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+
+        Query query = reference.child("Customer").equalTo(currentDate);
+
+        ((Query) query).addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+
+                    // dataSnapshot is the "issue" node with all children with id 0
+                    for (DataSnapshot issue : dataSnapshot.getChildren()) {
+                        issue.getValue();
+
+                        // do something with the individual "issues"
+
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        //////////////////////// singleDocument Get System ////////////////////////////////
+
 
     }
 }

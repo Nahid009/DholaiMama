@@ -26,6 +26,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.nahidd.dholaimama.model.CustomerInfo;
 import com.nahidd.dholaimama.model.UserInfo;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class RegisterActivity extends AppCompatActivity {
 
 
@@ -38,6 +41,11 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private FirebaseUser firebaseUser;
     ///////////////firebase
+
+
+    /////calender
+    String dateOfSub;
+    /////calender
 
 
     @Override
@@ -58,6 +66,20 @@ public class RegisterActivity extends AppCompatActivity {
         initializeUI();
 
 
+        /////////calender
+
+        Calendar calendar = Calendar.getInstance();
+
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateOfSub = simpleDateFormat.format(Calendar.getInstance().getTime());
+
+        /////////calender
+
+
 
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                 ///calling method...
-                addInfo("",name,email,contract,"");
+                addInfo("",name,email,contract,"",dateOfSub);
             }
         });
 
@@ -141,13 +163,13 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
      // FireStore put data method
-    private void addInfo(String user_id, String user_name, String user_email, String user_phone_number, String user_current_location) {
+    private void addInfo(String user_id, String user_name, String user_email, String user_phone_number, String user_current_location,String date_of_sub) {
 
 
         CollectionReference dbCourses = db.collection("Users");
 
 
-        UserInfo userInfo = new UserInfo(user_id, user_name, user_email, user_phone_number, user_current_location);
+        UserInfo userInfo = new UserInfo(user_id, user_name, user_email, user_phone_number, user_current_location,date_of_sub);
 
 
         dbCourses.add(userInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

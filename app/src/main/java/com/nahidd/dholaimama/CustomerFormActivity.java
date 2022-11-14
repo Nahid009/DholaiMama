@@ -48,6 +48,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.nahidd.dholaimama.model.CustomerInfo;
 import com.nahidd.dholaimama.model.UserInfo;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -130,26 +132,39 @@ public class CustomerFormActivity extends AppCompatActivity {
                 }
 
                 if (TextUtils.isEmpty(name)) {
+
                     Toast.makeText(CustomerFormActivity.this, "Please Enter Valid Name! ", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(phone_number)) {
+
                     Toast.makeText(CustomerFormActivity.this, "Please Enter Valid Phone Number!", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(address) && lenth != 11) {
+
                     Toast.makeText(CustomerFormActivity.this, "Please Enter Valid address!", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(customer_totalJobHolder.getText().toString())) {
+
                     Toast.makeText(CustomerFormActivity.this, "Please Enter Valid Total Job Holder!", Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(customer_monthlyLandryCost.getText().toString())) {
+
                     Toast.makeText(CustomerFormActivity.this, "Please Enter Valid Monthly Landry Cost!", Toast.LENGTH_SHORT).show();
                 } else {
+
                     UserInfo userInfo = new UserInfo();
                     String userId = userInfo.getUser_id();
 
 
                     ///////loaction
+
                     getCurrentLocation();
+
                     ///////location
 
+                    //////////////////////// currentDate //////////////////////////
 
-                    addInfo(customer_id, name, address, phone_number, userId, latitude, longitude, isInterested);
+                    String currentDate = currentDate();
+
+                    //////////////////////// currentDate //////////////////////////
+
+                    addInfo(customer_id, name, address, phone_number, userId, currentDate, latitude, longitude, isInterested);
 
                     Intent intent = new Intent(CustomerFormActivity.this, SuccessActivity.class);
                     startActivity(intent);
@@ -163,13 +178,13 @@ public class CustomerFormActivity extends AppCompatActivity {
     }
 
 
-    private void addInfo(String customer_id, String name, String address, String phone_number, String user_id, double lati, double longi, boolean isChecked) {
+    private void addInfo(String customer_id, String name, String address, String phone_number, String user_id, String currentDate, double lati, double longi, boolean isChecked) {
 
 
         CollectionReference dbCourses = db.collection("Customer");
 
 
-        CustomerInfo customerInfo = new CustomerInfo(customer_id, name, address, phone_number, user_id, lati, longi, isChecked);
+        CustomerInfo customerInfo = new CustomerInfo(customer_id, name, address, phone_number, user_id, currentDate, lati, longi, isChecked);
 
         dbCourses.add(customerInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
@@ -186,6 +201,16 @@ public class CustomerFormActivity extends AppCompatActivity {
         });
     }
 
+           ////////////////////currentDate////////////////////////////
+
+    public String currentDate() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        // to set the current date as by default
+        String date = simpleDateFormat.format(Calendar.getInstance().getTime());
+        return date;
+    }
+             ////////////////////currentDate////////////////////////////
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

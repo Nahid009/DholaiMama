@@ -1,23 +1,25 @@
 package com.nahidd.dholaimama.model;
 
 public class CustomerInfo {
-    private String customer_id, customer_name,customer_address,customer_phone_number,user_id;
+    private String customer_id, customer_name,customer_address,customer_phone_number,user_id,currentDate;
     private double lati,longi;
     private boolean isInterested;
 
-    public CustomerInfo() {
-    }
 
-    public CustomerInfo(String customer_id, String customer_name, String customer_address, String customer_phone_number, String user_id, double lati, double longi, boolean isInterested) {
+    public CustomerInfo() {}
+
+    public CustomerInfo(String customer_id, String customer_name, String customer_address, String customer_phone_number, String user_id, String currentDate, double lati, double longi, boolean isChecked) {
         this.customer_id = customer_id;
         this.customer_name = customer_name;
         this.customer_address = customer_address;
         this.customer_phone_number = customer_phone_number;
         this.user_id = user_id;
+        this.currentDate = currentDate;
         this.lati = lati;
         this.longi = longi;
         this.isInterested = isInterested;
     }
+
 
     public String getCustomer_id() {
         return customer_id;
@@ -57,6 +59,14 @@ public class CustomerInfo {
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+    public String getCurrentDate() {
+        return currentDate;
+    }
+
+    public void setCurrentDate(String currentDate) {
+        this.currentDate = currentDate;
     }
 
     public double getLati() {

@@ -94,7 +94,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="৮ * ৮ =৬৪ টাকা"
+        android:text="৬ * ৮ =৪৮ টাকা"
         android:padding="@dimen/mediumText"
         android:textSize="@dimen/mediumText"
         android:background="#f2f2f2"
