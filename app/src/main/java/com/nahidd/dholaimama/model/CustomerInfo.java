@@ -8,7 +8,10 @@ public class CustomerInfo {
 
     public CustomerInfo() {}
 
-    public CustomerInfo(String customer_id, String customer_name, String customer_address, String customer_phone_number, String user_id, String currentDate, double lati, double longi, boolean isChecked) {
+
+
+    public CustomerInfo(String customer_id, String name, String address, String phone_number, String user_id, String currentDate, double lati, double longi, boolean isChecked) {
+
         this.customer_id = customer_id;
         this.customer_name = customer_name;
         this.customer_address = customer_address;
@@ -18,6 +21,7 @@ public class CustomerInfo {
         this.lati = lati;
         this.longi = longi;
         this.isInterested = isInterested;
+
     }
 
 
@@ -40,6 +44,8 @@ public class CustomerInfo {
     public String getCustomer_address() {
         return customer_address;
     }
+
+//    public String getMonthlySurvey(){return monthlySurvey;}
 
     public void setCustomer_address(String customer_address) {
         this.customer_address = customer_address;

@@ -11,8 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,7 +22,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
@@ -45,12 +42,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.nahidd.dholaimama.model.CustomerInfo;
 import com.nahidd.dholaimama.model.UserInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 
 
 public class CustomerFormActivity extends AppCompatActivity {
@@ -68,6 +65,8 @@ public class CustomerFormActivity extends AppCompatActivity {
 
     String lat;
     String provider;
+
+    private boolean unique_number = false;
 
     protected boolean gps_enabled, network_enabled;
 
@@ -91,6 +90,8 @@ public class CustomerFormActivity extends AppCompatActivity {
         customer_monthlyLandryCost = findViewById(R.id.monthlyLandryCost);
         okButton = findViewById(R.id.okButton);
         interested = findViewById(R.id.checkedInterested);
+
+      //  validPhoneNumber();
 
 
         ////////////location
@@ -137,40 +138,50 @@ public class CustomerFormActivity extends AppCompatActivity {
                 } else if (TextUtils.isEmpty(phone_number)) {
 
                     Toast.makeText(CustomerFormActivity.this, "Please Enter Valid Phone Number!", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(address) && lenth != 11) {
 
-                    Toast.makeText(CustomerFormActivity.this, "Please Enter Valid address!", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(address)) {
+
+                        Toast.makeText(CustomerFormActivity.this, "Please Enter Valid address!", Toast.LENGTH_SHORT).show();
+
                 } else if (TextUtils.isEmpty(customer_totalJobHolder.getText().toString())) {
 
                     Toast.makeText(CustomerFormActivity.this, "Please Enter Valid Total Job Holder!", Toast.LENGTH_SHORT).show();
+
                 } else if (TextUtils.isEmpty(customer_monthlyLandryCost.getText().toString())) {
 
                     Toast.makeText(CustomerFormActivity.this, "Please Enter Valid Monthly Landry Cost!", Toast.LENGTH_SHORT).show();
+
                 } else {
 
-                    UserInfo userInfo = new UserInfo();
-                    String userId = userInfo.getUser_id();
+                    boolean valid_phone = validPhoneNumber();
+                    if (valid_phone) {
+                        Toast.makeText(CustomerFormActivity.this, "Phone Number Is Already used ", Toast.LENGTH_SHORT).show();
+                    } else {
+                        validPhoneNumber();
+
+                        UserInfo userInfo = new UserInfo();
+                        String userId = userInfo.getUser_id();
 
 
-                    ///////loaction
+                        ///////////////////////////Location////////////////////////////////
 
-                    getCurrentLocation();
+                        getCurrentLocation();
 
-                    ///////location
+                        //////////////////////////Location//////////////////////////////
 
-                    //////////////////////// currentDate //////////////////////////
+                        //////////////////////// currentDate //////////////////////////
 
-                    String currentDate = currentDate();
+                        String currentDate = currentDate();
 
-                    //////////////////////// currentDate //////////////////////////
+                        //////////////////////// currentDate //////////////////////////
 
-                    addInfo(customer_id, name, address, phone_number, userId, currentDate, latitude, longitude, isInterested);
+                        addInfo(customer_id, name, address, phone_number, userId, currentDate, latitude, longitude, isInterested);
 
-                    Intent intent = new Intent(CustomerFormActivity.this, SuccessActivity.class);
-                    startActivity(intent);
+                        Intent intent = new Intent(CustomerFormActivity.this, SuccessActivity.class);
+                        startActivity(intent);
+                    }
+
                 }
-
-
             }
 
         });
@@ -201,7 +212,7 @@ public class CustomerFormActivity extends AppCompatActivity {
         });
     }
 
-           ////////////////////currentDate////////////////////////////
+    ////////////////////currentDate////////////////////////////
 
     public String currentDate() {
         Calendar calendar = Calendar.getInstance();
@@ -210,7 +221,7 @@ public class CustomerFormActivity extends AppCompatActivity {
         String date = simpleDateFormat.format(Calendar.getInstance().getTime());
         return date;
     }
-             ////////////////////currentDate////////////////////////////
+    ////////////////////currentDate////////////////////////////
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -339,6 +350,37 @@ public class CustomerFormActivity extends AppCompatActivity {
         return isEnabled;
 
     }
+
+/////////////// UniquePhoneNumber ///////////////////////
+
+    public boolean validPhoneNumber(){
+
+        String phoneNumber;
+
+        phoneNumber = customer_phone_number.getText().toString();
+
+        db.collection("Users")
+                .whereEqualTo("userContract", phoneNumber)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        unique_number = true;
+                    }
+
+
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        unique_number = false;
+                    }
+                });
+
+        return unique_number;
+
+    }
+    /////////////// UniquePhoneNumber ///////////////////////
 
 
 }

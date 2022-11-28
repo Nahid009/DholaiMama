@@ -185,7 +185,7 @@
                 android:drawablePadding="@dimen/smallMargin"
                 android:drawableStart="@drawable/ic_phone"
                 android:gravity="center"
-                android:text="+8801611443964"
+                android:text="+880000000000"
                 android:autoLink="phone"
                 android:textColorLink="@android:color/white"
                 android:textSize="@dimen/xLargeText"
