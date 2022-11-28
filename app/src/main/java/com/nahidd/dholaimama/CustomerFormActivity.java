@@ -113,6 +113,10 @@ public class CustomerFormActivity extends AppCompatActivity {
         String customer_id = firebaseUser.getUid();
 
 
+        /////////check valid phone number
+        boolean validNumber = validPhoneNumber();
+        /////////check valid phone number
+
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,15 +157,12 @@ public class CustomerFormActivity extends AppCompatActivity {
 
                 } else {
 
-                    boolean valid_phone = validPhoneNumber();
-                    if (valid_phone) {
-                        Toast.makeText(CustomerFormActivity.this, "Phone Number Is Already used ", Toast.LENGTH_SHORT).show();
-                    } else {
-                        validPhoneNumber();
+                    if (validNumber){
+                        Toast.makeText(CustomerFormActivity.this, "Phone number is already used!", Toast.LENGTH_SHORT).show();
+                    }else {
 
                         UserInfo userInfo = new UserInfo();
                         String userId = userInfo.getUser_id();
-
 
                         ///////////////////////////Location////////////////////////////////
 
@@ -179,8 +180,8 @@ public class CustomerFormActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(CustomerFormActivity.this, SuccessActivity.class);
                         startActivity(intent);
-                    }
 
+                    }
                 }
             }
 
@@ -193,10 +194,11 @@ public class CustomerFormActivity extends AppCompatActivity {
 
 
         CollectionReference dbCourses = db.collection("Customer");
+        Log.d("phone",phone_number);
 
 
         CustomerInfo customerInfo = new CustomerInfo(customer_id, name, address, phone_number, user_id, currentDate, lati, longi, isChecked);
-
+        Log.d("phone",customerInfo.getCustomer_phone_number());
         dbCourses.add(customerInfo).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
@@ -359,8 +361,8 @@ public class CustomerFormActivity extends AppCompatActivity {
 
         phoneNumber = customer_phone_number.getText().toString();
 
-        db.collection("Users")
-                .whereEqualTo("userContract", phoneNumber)
+        db.collection("Customer")
+                .whereEqualTo("customer_phone_number", phoneNumber)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

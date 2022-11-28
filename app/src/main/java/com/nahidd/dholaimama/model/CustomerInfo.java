@@ -10,12 +10,12 @@ public class CustomerInfo {
 
 
 
-    public CustomerInfo(String customer_id, String name, String address, String phone_number, String user_id, String currentDate, double lati, double longi, boolean isChecked) {
+    public CustomerInfo(String customer_id, String customer_name, String customer_address, String phone_number, String user_id, String currentDate, double lati, double longi, boolean isInterested) {
 
         this.customer_id = customer_id;
         this.customer_name = customer_name;
         this.customer_address = customer_address;
-        this.customer_phone_number = customer_phone_number;
+        this.customer_phone_number = phone_number;
         this.user_id = user_id;
         this.currentDate = currentDate;
         this.lati = lati;
